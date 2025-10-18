@@ -6,23 +6,26 @@ function sendRuntimeMessage(msg) {
   });
 }
 
-window.addEventListener("message", async (event) => {
-  if (event.source !== window 
-    || event.origin !== "https://watchit-cs.netlify.app") return;
+window.addEventListener("message", (event) => {
+  if (event.source !== window) return;
+  if (!event.data || event.data.direction !== "FROM_PAGE") return;
 
-  const message = event.data;
-  if (message && message.direction === "FROM_PAGE" && message.action === "getFaceitLiveMatchesData") {
-    const requestId = message.requestId;
+  chrome.runtime.sendMessage({
+      action: event.data.action,
+      entityId: event.data.entityId,
+      requestId: event.data.requestId
+    }, (response) => {
+      window.postMessage({
+        direction: "FROM_EXTENSION",
+        requestId: event.data.requestId,
+        payload: response
+      }, "*");
+    }
+  );
+});
 
-    const response = await sendRuntimeMessage({
-      action: "getFaceitLiveMatchesData",
-      entityId: message.entityId
-    });
-
-    window.postMessage({
-      direction: "FROM_EXTENSION",
-      requestId,
-      payload: response
-    }, "*");
+window.addEventListener("message", (event) => {
+  if (event.data === "EXT_CHECK") {
+    window.postMessage({ type: "EXT_RESPONSE" }, "*");
   }
 });

@@ -1,15 +1,39 @@
 {
   "manifest_version": 3,
-  "name": "Faceit API Helper",
+  "name": "WatchIT - Smart blocking for smarter matchmaking.",
   "version": "1.0",
-  "permissions": ["cookies", "storage", "tabs", "scripting", "activeTab"],
-  "host_permissions": ["https://www.faceit.com/*"],
-  "background": { "service_worker": "background.js" },
+  "permissions": [
+    "cookies",
+    "storage",
+    "tabs",
+    "scripting",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "https://www.faceit.com/*",
+    "https://watchit-cs.netlify.app/*",
+    "http://localhost:5173/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
   "content_scripts": [
     {
-      "matches": ["https://watchit-cs.netlify.app/*"], 
-      "js": ["content.js"]
+      "matches": [
+        "https://watchit-cs.netlify.app/*",
+        "http://localhost:5173/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_start"
     }
   ],
-  "action": { "default_popup": "popup/popup.html" }
+  "action": {
+    "default_popup": "popup/popup.html"
+  },
+  "externally_connectable": {
+    "matches": [
+      "https://watchit-cs.netlify.app/*",
+      "http://localhost:5173/*"
+    ]
+  }
 }
