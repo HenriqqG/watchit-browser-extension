@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "Faceit API Helper",
+  "version": "1.0",
+  "permissions": ["cookies", "storage", "tabs", "scripting", "activeTab"],
+  "host_permissions": ["https://www.faceit.com/*"],
+  "background": { "service_worker": "background.js" },
+  "content_scripts": [
+    {
+      "matches": ["https://watchit-cs.netlify.app/*"], 
+      "js": ["content.js"]
+    }
+  ],
+  "action": { "default_popup": "popup/popup.html" }
+}
