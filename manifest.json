@@ -1,13 +1,20 @@
 {
   "manifest_version": 3,
-  "name": "WatchIT - Smart blocking for smarter matchmaking.",
-  "version": "1.0",
+  "name": "WatchIT - Smart blocking for smarter matchmaking",
+  "version": "1.0.0",
+  "description": "Track Faceit players in real time and manage your matchmaking blocks with ease.",
+  "icons": {
+    "16": "icons/favicon.png",
+    "32": "icons/favicon.png",
+    "48": "icons/favicon.png",
+    "128": "icons/favicon.png"
+  },
   "permissions": [
-    "cookies",
     "storage",
     "tabs",
     "scripting",
-    "activeTab"
+    "activeTab",
+    "offscreen"
   ],
   "host_permissions": [
     "https://www.faceit.com/*",
@@ -20,20 +27,58 @@
   "content_scripts": [
     {
       "matches": [
+        "https://www.faceit.com/*"
+      ],
+      "js": ["contents/content-faceit.js"],
+      "run_at": "document_end"
+    },
+    {
+      "matches": [
         "https://watchit-cs.netlify.app/*",
         "http://localhost:5173/*"
       ],
-      "js": ["content.js"],
+      "js": ["contents/content-watchit.js"],
+      "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "https://www.faceit.com/*",
+        "https://watchit-cs.netlify.app/*",
+        "http://localhost:5173/*"
+      ],
+      "js": ["contents/content.js"],
       "run_at": "document_start"
     }
   ],
   "action": {
-    "default_popup": "popup/popup.html"
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/favicon.png",
+      "32": "icons/favicon.png"
+    }
   },
   "externally_connectable": {
     "matches": [
       "https://watchit-cs.netlify.app/*",
       "http://localhost:5173/*"
     ]
-  }
+  },
+  "offscreen_documents": [
+    {
+      "url": "offscreen.html",
+      "reasons": ["BLOBS", "IFRAME_SCRIPTING"],
+      "justification": "Securely fetch Faceit data using browser-managed credentials without directly accessing cookies."
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "resources/injected-style.css"
+      ],
+      "matches": [
+        "https://www.faceit.com/*"
+      ]
+    }
+  ],
+  "minimum_chrome_version": "109"
 }

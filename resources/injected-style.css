@@ -1,0 +1,9 @@
+th.watchit-header {
+  text-align: center;
+  font-weight: bold;
+}
+
+td.watchit-cell {
+  text-align: center;
+  font-style: italic;
+}
