@@ -22,7 +22,8 @@
     "http://localhost:5173/*"
   ],
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "background.js",
+    "type": "module"
   },
   "content_scripts": [
     {
@@ -68,16 +69,6 @@
       "url": "offscreen.html",
       "reasons": ["BLOBS", "IFRAME_SCRIPTING"],
       "justification": "Securely fetch Faceit data using browser-managed credentials without directly accessing cookies."
-    }
-  ],
-  "web_accessible_resources": [
-    {
-      "resources": [
-        "resources/injected-style.css"
-      ],
-      "matches": [
-        "https://www.faceit.com/*"
-      ]
     }
   ],
   "minimum_chrome_version": "109"
