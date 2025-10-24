@@ -4,7 +4,7 @@
  * @returns {Promise<Object>} Os dados do scoreboard.
  */
 export async function fetchRoomScoreboard(roomId) {
-    const url = `https://faceit-blocklist-extender-node-homolog.fly.dev/bextension/room/${roomId}`;
+    const url = `https://faceit-blocklist-extender-node.fly.dev/bextension/room/${roomId}`;
 
     try {
         const response = await fetch(url);
