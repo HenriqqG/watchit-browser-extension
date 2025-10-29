@@ -58,7 +58,7 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
     const player_id = msg.player_id;
     chrome.tabs.query({},
       async (tabs) => {
-        const targetTab = tabs.find((t) => t.url?.includes("watchit-cs.netlify.app") || t.url?.includes("localhost:5173"));
+        const targetTab = tabs.find((t) => t.url?.includes("watchit.gg") || t.url?.includes("localhost:5173"));
         if (targetTab?.id) {
           chrome.tabs.sendMessage(targetTab.id, { action: "forwardToFrontend", player_id },
             (response) => {
@@ -88,7 +88,7 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
 
 chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
   if (changeInfo.status === "complete" &&
-    (tab.url?.includes("watchit-cs.netlify.app") ||
+    (tab.url?.includes("watchit.gg") ||
       tab.url?.includes("localhost:5173"))) {
 
     console.log("[Background] WatchIT aberto, verificando fila...");

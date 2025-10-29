@@ -5,6 +5,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     chrome.tabs.create({ url: "https://x.com/GagnoHenriqq"});
   });
   watchITLogo.addEventListener("click", () => {
-    chrome.tabs.create({ url: "https://watchit-cs.netlify.app/"});
+    chrome.tabs.create({ url: "https://watchit.gg/"});
   });
 });
