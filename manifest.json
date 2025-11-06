@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "WatchIT - Smart blocking for smarter matchmaking",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Track Faceit players in real time and manage your matchmaking blocks with ease.",
   "icons": {
     "16": "icons/favicon.png",

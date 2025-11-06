@@ -25,12 +25,13 @@ async function handleFaceitRequest(entityId) {
     }
 
     const firstData = await firstResponse.json();
-    const totalPages = firstData.totalPages;
+    const totalPages = Math.min(firstData.totalPages, Math.floor(500 / limit) + 1);
 
     if (totalPages > 1) {
         const requests = [];
         for (let page = 1; page < totalPages; page++) {
             const pageOffset = page * limit;
+            if (pageOffset > 500) break;
             requests.push(
                 fetch(`https://www.faceit.com/api/match/v3/match?entityId=${entityId}&entityType=matchmaking&status=LIVE&offset=${pageOffset}&limit=${limit}`, {
                     method: "GET",
